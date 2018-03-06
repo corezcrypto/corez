@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=CoreZ
+Comment=CoreZ P2P Cryptocurrency
+Exec=corez-qt %u
+Terminal=false
+Type=Application
+Icon=corez128
+MimeType=x-scheme-handler/corez;
+Categories=Office;Finance;
+Name[en_US]=corez-qt.desktop

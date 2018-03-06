@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  corezd The CoreZ Core server.
+#
+#
+# chkconfig: 345 80 20
+# description: corezd
+# processname: corezd
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/corezd, see below
+if [ -f /etc/sysconfig/corezd ]; then
+        . /etc/sysconfig/corezd
+fi
+
+RETVAL=0
+
+prog=corezd
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/corezd
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/corezd}
+
+# corezd defaults to /usr/bin/corezd, override with BITCOIND_BIN
+corezd=${BITCOIND_BIN-/usr/bin/corezd}
+
+# corezd opts default to -disablewallet, override with BITCOIND_OPTS
+corezd_opts=${BITCOIND_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $corezd $corezd_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac

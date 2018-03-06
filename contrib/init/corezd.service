@@ -1,0 +1,22 @@
+[Unit]
+Description=CoreZ's distributed currency daemon
+After=network.target
+
+[Service]
+User=corezcore
+Group=corezcore
+
+Type=forking
+PIDFile=/var/lib/corezd/corezd.pid
+ExecStart=/usr/bin/corezd -daemon -pid=/var/lib/corezd/corezd.pid \
+-conf=/etc/corezcore/corez.conf -datadir=/var/lib/corezd -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

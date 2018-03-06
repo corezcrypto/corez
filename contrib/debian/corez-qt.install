@@ -1,0 +1,6 @@
+usr/local/bin/corez-qt usr/bin
+share/pixmaps/corez32.xpm usr/share/pixmaps
+share/pixmaps/corez16.xpm usr/share/pixmaps
+share/pixmaps/corez128.png usr/share/pixmaps
+debian/corez-qt.desktop usr/share/applications
+debian/corez-qt.protocol usr/share/kde4/services/
